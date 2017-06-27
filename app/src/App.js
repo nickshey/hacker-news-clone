@@ -34,12 +34,12 @@ class App extends Component {
                 <Link to="/Ask">Ask</Link>
                 <Link to="/Jobs">Jobs</Link>
                 <a
-                  href="https://github.com/vuejs/vue-hackernews-2.0"
+                  href="https://github.com/nickshey/hacker-news-clone"
                   target="_blank"
                   rel="noopener"
                   className="github"
                 >
-                  Built with Vue.js
+                  Built with React.js
                 </a>
               </nav>
             </header>

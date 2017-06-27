@@ -92,7 +92,16 @@ class Top extends Component {
                 <p>
                   {" "}<a href={entry.data.url}> {entry.data.title} </a>{" "}
                 </p>
-                <p> By: {entry.data.by} | {entry.data.descendants} comments</p>
+                <p>
+                  {" "}By:{" "}
+                  <a
+                    href={"https://vue-hn.now.sh/user/" + entry.data.by}
+                    target="_blank"
+                  >
+                    {entry.data.by}
+                  </a>{" "}
+                  | {entry.data.descendants} comments
+                </p>
               </li>
             )}
           </ul>
