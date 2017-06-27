@@ -86,28 +86,11 @@ class Top extends Component {
           <ul>
             {this.state.details.map(entry =>
               <li className="news-item">
-                <span className="score">{entry.data.score}</span>
-                <span className="title">
-                  <a href={entry.data.url} target="_blank" rel="noopener">
-                    {entry.data.title}
-                  </a>
-                </span>
-                <br />
-                <span className="meta">
-                  <span className="by">
-                    by <a href={"/user/" + entry.data.by} className="" />
-                    {entry.data.by}
-                  </span>
-                  <span className="time">
-                    {entry.data.time}
-                  </span>
-                  <span className="comments-link">
-                    |{" "}
-                    <a href="/item/14644539" className="">
-                      {entry.data.descendants} comments
-                    </a>
-                  </span>
-                </span>
+                <h1 className="score"> {entry.data.score} </h1>
+                <p>
+                  {" "}<a href={entry.data.url}> {entry.data.title} </a>{" "}
+                </p>
+                <p> By: {entry.data.by} | {entry.data.descendants} comments</p>
               </li>
             )}
           </ul>
