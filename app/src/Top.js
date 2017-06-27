@@ -9,14 +9,86 @@ import {
   Redirect
 } from "react-router-dom";
 class Top extends Component {
+  state = {
+    details: [],
+    loading: true,
+    error: null
+  };
+
+  componentDidMount() {
+    axios
+      .get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
+      .then(res => {
+        let userid = res.data;
+        userid.map(userid =>
+          axios
+            .get(
+              "https://hacker-news.firebaseio.com/v0/item/" +
+                userid +
+                ".json?print=pretty"
+            )
+            .then(result => {
+              let details = result.data;
+              this.setState({
+                details,
+                loading: false,
+                error: null
+              });
+            })
+        );
+      })
+      .catch(err => {
+        this.setState({
+          loading: false,
+          error: err
+        });
+      });
+  }
+
+  renderLoading() {
+    return <div>Loading...</div>;
+  }
+
+  renderError() {
+    return (
+      <div>
+        Something went wrong: {this.state.error.message}
+      </div>
+    );
+  }
+
+  renderDetails() {
+    const { error, details } = this.state;
+    if (error) {
+      return this.renderError();
+    }
+    return (
+      <li>
+        {this.state.details.by}
+        <a href={this.state.details.url} target="_blank">
+          {" "}{this.state.details.title}{" "}
+        </a>
+      </li>
+    );
+  }
   render() {
+    const { loading } = this.state;
+    console.log(this.state.details.by);
     return (
       <div className="news-view view">
         <div className="news-list-nav">
           <a className="disabled">&lt; prev</a><span>1/25</span>
           <a href="/top/2" className="">more &gt;</a>
+          {loading ? this.renderLoading() : this.renderDetails()}
         </div>
-        Top
+        <div className="news-list">
+          <ul>
+            <li className="news-item"> hi </li>
+            <li className="news-item"> hi </li>
+            <li className="news-item"> hi </li>
+            {loading ? this.renderLoading() : this.renderDetails()}
+          </ul>
+        </div>
       </div>
     );
   }
