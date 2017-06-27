@@ -28,9 +28,11 @@ class Top extends Component {
                 ".json?print=pretty"
             )
             .then(result => {
-              let details = result.data;
+              let details = this.state.details;
+              details.push(result);
               this.setState({
-                details,
+                ...this.state,
+                details: details,
                 loading: false,
                 error: null
               });
@@ -73,20 +75,28 @@ class Top extends Component {
   }
   render() {
     const { loading } = this.state;
-    console.log(this.state.details.by);
     return (
       <div className="news-view view">
         <div className="news-list-nav">
           <a className="disabled">&lt; prev</a><span>1/25</span>
           <a href="/top/2" className="">more &gt;</a>
-          {loading ? this.renderLoading() : this.renderDetails()}
         </div>
+
         <div className="news-list">
+
           <ul>
-            <li className="news-item"> hi </li>
-            <li className="news-item"> hi </li>
-            <li className="news-item"> hi </li>
-            {loading ? this.renderLoading() : this.renderDetails()}
+            {this.state.details.map(entry =>
+              <li className="news-item">{entry.data.by}</li>
+            )}
+            <li className="news-item">
+              hi
+            </li>
+            <li className="news-item">
+              hi
+            </li>
+            <li className="news-item">
+              hi
+            </li>
           </ul>
         </div>
       </div>
